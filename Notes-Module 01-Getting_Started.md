@@ -2,7 +2,7 @@
 
 ### What is Angular
 
-Angular is a _JavaScript Framework _ which allows you to create reactive __Single-Page-Applications__ (SPAs).
+Angular is a __JavaScript Framework__ which allows you to create reactive __Single-Page-Applications__ (SPAs).
 
 ### Angular vs Angular 2 vs Angular 4
 
@@ -54,7 +54,7 @@ Here are some common issues & solutions:
 ### Project Setup and First App
 
 **Pre-requisits:**
-- install NodeJs (bcause CLI need it)
+- install NodeJs (because CLI need it)
 
 **NodeJs**
 - will manages dependencies
@@ -69,8 +69,38 @@ Here are some common issues & solutions:
 in command line run the following comamnds:
 - `npm install -g @angular/cli` - install CLI in global (-g)
 - `ng new my-first-app` - create a new app with all necessary setup 
-- cd my-first-app` - navigate to the folder
+- `cd my-first-app` - navigate to the folder
 - `ng serve` - run the app
 	- the outpt should show someting like '** NG Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **'
 	- in the browser to to 'http://localhost:4200/'
 
+### Editing the First App
+**add input that interact with other element**
+
+Steps:
+- app.module.ts: add import to forms module
+	- `import { FormsModule } from '@angular/forms';`
+	- `imports: [ BrowserModule, **FormsModule** ],`
+- app.component.ts : add property name to the class AppComponent
+	- `name = '';`
+- app.componemt.html - add input and text
+	- `<input type="text" [(ngModel)]="name">`
+	- `<p>{{name}}</p>`
+	
+The result is, when change the input, the text will apear bellow the input
+
+
+### What is TypeScript
+- Upper set of JavaScript
+- Does not run in the browser. It is necessary to compyle to JavaScript in the end.
+- The CLI will compile TypeScript to JavaScript
+
+### A Basic Project Setup using Bootstrap for Styling
+
+Steps:
+- in command line
+	- navigate to the project folder
+	- `npm install -- save bootstrap`
+- in the IDE
+	- in the file '.angular-cli.json', look for '"styles": [ "styles.css" ],'
+		- upper "styles.css", add '"../node_modules/bootstrap/dist/css/bootstrap.min.css"'
