@@ -100,3 +100,33 @@ Note: Two-Way-Binding
 
 Notes: How do you know to which Properties or Events of HTML Elements you may bind? 
 - You can basically bind to all Properties and Events - a good idea is to console.log()  the element you're interested in to see which properties and events it offers.
+
+### Directives
+
+**What are directives?**
+
+Directives are instructions in the DOM.
+
+**Types of directives**
+- Structural
+	- add/remove elements in the DOM
+	- Example: ngIf, ngFor
+- Attribute
+	- change the elements in the DOM
+	- DO NOT add/remove elements in the DOM
+	- Example: ngStyle, ngClass
+
+**Built-in directives**
+- ngIf
+	- Example: `<p *ngIf="serverCreated">Server was created. Name is {{ serverName }}</p>`
+	- where `serverCreated` is a property.
+- ngStyle - allow dinamically change the style of a HTML element
+	- Example: `<p [ngStyle]="{backgroundColor:getColor()}">put text here</p>`
+	- where `getColor()` is a method
+- ngClass - allow dinamically add/remove css classes
+	- Example: `<p [ngClass]="{onlineClass: serverStatus === 'online' }">put text here</p>`
+	- key + value
+		- key - class to add
+		- value - condition to add a class
+- ngFor
+	- Example: `<app-server *ngFor="let serve of servers"></app-server>`

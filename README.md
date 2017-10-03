@@ -9,10 +9,10 @@ Learn Angular 4
 - my-first-app - just demo created with CLI
 - ng4-complete-guide - app created during various modules
 - basics-assignment-1 - first assignment. Create components.
-
+- basics-assignment-2 - Databinding
 
 ### Topics
 - Getting Started
 - The Basics
 	- Components
-	
+	- Databinding
