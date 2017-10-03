@@ -1,4 +1,35 @@
-<h3> I am in the ServersComponent!</h3>
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-body">
 
-<app-server></app-server>
-<app-server></app-server>
+      <h3> I am in the ServersComponent!</h3>
+      <label>Server Name</label>
+      <!--Databinding using event-->
+      <!--<input
+        type="text"
+        class="form-control"
+        (input)="onUpdataServerName($event)"
+      >-->
+
+      <!--Two-Way-Databinding-->
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="serverName"
+      >
+      <!-- just to test - show the text iss adding in the input text-->
+      <!--<p>{{ serverName }}</p>-->
+      <button
+          class="btn btn-primary"
+          [disabled]="!allowNewServer"
+          (click)="onCreateServer()"
+      >Add Server</button>
+      <!--<p [innerText] = "allowNewServer"></p>-->
+      <p>{{ serverCreationStatus }}</p>
+      <app-server></app-server>
+      <app-server></app-server>
+
+    </div>
+  </div>
+
+</div>

@@ -78,3 +78,25 @@ It is possible change the way Angular use the selector. It is like css.
 	- html: `<div class="app-servers"></div>`
 	
 Note: is not possivle select by id
+
+----
+
+### Databinding
+
+**Understand Databinding**
+- Databinding is the comunication between TypeScript Code (Business Logic) and Template (HTML)
+- Types:
+	- Output Data
+		- String interpolation - {{data}}
+		- Property binding - [property] = "data"
+	- Reactor to (User) Events
+		- Event binding - (event) = "expression"
+	- Two-Way-Binding - [(ngModel) = "data"]
+	
+Note: Two-Way-Binding
+- For Two-Way-Binding to work, you need to enable the ngModel  directive. This is done by adding the FormsModule  to the imports[]  array in the AppModule.
+- You then also need to add the import from @angular/forms  in the app.module.ts file:
+- `import { FormsModule } from '@angular/forms';`
+
+Notes: How do you know to which Properties or Events of HTML Elements you may bind? 
+- You can basically bind to all Properties and Events - a good idea is to console.log()  the element you're interested in to see which properties and events it offers.
