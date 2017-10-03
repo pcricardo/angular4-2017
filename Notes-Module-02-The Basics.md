@@ -50,8 +50,8 @@ Components contains it owns:
 
 ### Creating Components with the CLI & Nesting Components
 - With 'ng serve' runnig
-- And in hte command line, in hte folder project
-- Run the command: `gn generate component [name component]`
+- And in the command line, in hte folder project
+- Run the command: `ng generate component [name component]`
 
 Result:
 - create a folder with the files
@@ -60,6 +60,9 @@ Result:
 	- css - style
 	- spec.ts - tests
 - register component in the app, by adding dependencies in file app.module.ts
+
+**using the component in the html**
+- in app.component.html, just add html tag with the name of selector. Example: <name component></name component>
 
 ### Component Selector
 
