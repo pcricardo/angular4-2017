@@ -43,3 +43,13 @@
 	- remove all default code from the files 
 	- add just a simple demo line text
 - finally rubn the app again - - `ng serve`
+
+### Creating Components
+- app (root)
+	- header
+	- recipes
+		- recipe-details
+		- recipe-list
+			- recipe-item
+	- shopping-list
+		- shopping-edit

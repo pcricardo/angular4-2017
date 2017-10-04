@@ -51,7 +51,12 @@ Components contains it owns:
 ### Creating Components with the CLI & Nesting Components
 - With 'ng serve' runnig
 - And in the command line, in hte folder project
-- Run the command: `ng generate component [name component]`
+- Run the command: 
+	- `ng generate component [path + name component]`
+	- or `ng generate component [path + name component] --spec false`, __--spec false__ will not create test file
+	- where 'path' 
+		- is optional, but usefull when want to create a srtucture folders
+		- example recipes/recipe-list
 
 Result:
 - create a folder with the files

@@ -4,6 +4,15 @@ Learn Angular 4
 ### Environment
 - Windows 10
 - Node.JS 8.6.0
+- IntelliJ IDE 2017.2 Community Edition
+- Plugins
+	- IntelliJ
+		- TypoScript Plugin 
+			- visually do not recognise code
+		- EmmetEverywhere Plugin
+			- Emmet is a plugin for many popular text editors which greatly improves HTML & CSS 
+	- Chrome
+		- Augury - Extends the Developer Tools, adding tools for debugging and profiling Angular applications.
 
 ### Examples
 - my-first-app - just demo created with CLI
@@ -11,6 +20,7 @@ Learn Angular 4
 - basics-assignment-1 - first assignment. Create components.
 - basics-assignment-2 - Databinding
 - basics-assignment-3 - Directives - ngIf, ngStyle, ngClass, ngFor
+- Course Project - Recipe App - The basics
 
 ### Topics
 - Getting Started
