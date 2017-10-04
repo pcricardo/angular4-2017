@@ -63,11 +63,14 @@ Here are some common issues & solutions:
 **How to install NodeJs**
 - download file in https://nodejs.org/en/
 - just install
+- see the version installed. In the command line `node -v` (result: 8.6.0)
 
 **Steps to Create First Agular with CLI**
 
 in command line run the following comamnds:
-- `npm install -g @angular/cli` - install CLI in global (-g)
+- `npm install -g @angular/cli` 
+	- install CLI in global (-g)
+	- it is ONLY need run the fisrt time we install CLI in the machine
 - `ng new my-first-app` - create a new app with all necessary setup 
 - `cd my-first-app` - navigate to the folder
 - `ng serve` - run the app

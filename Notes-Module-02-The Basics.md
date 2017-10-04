@@ -130,3 +130,4 @@ Directives are instructions in the DOM.
 		- value - condition to add a class
 - ngFor
 	- Example: `<app-server *ngFor="let serve of servers"></app-server>`
+	- where 'servers' is the array, and 'let serve' is the local variable
