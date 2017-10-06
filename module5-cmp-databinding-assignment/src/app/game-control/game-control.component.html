@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Game Control</h3>
+      <button
+        class="btn btn-success"
+        [disabled]="startedGame"
+        (click)="onStart()">Start</button>
+      <button
+        class="btn btn-danger"
+        [disabled]="!startedGame"
+        (click)="onStop()">Stop</button>
+    </div>
+  </div>
+</div>
