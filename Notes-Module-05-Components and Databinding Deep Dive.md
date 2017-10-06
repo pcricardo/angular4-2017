@@ -84,7 +84,7 @@ Usecase: Pass information between detail component to master component.
 
 ### Using Local References in Templates
 
-This is used when we do not waht use two way data binding
+This is used when we do not what use two way data binding
 
 Example:
 ```HTML
