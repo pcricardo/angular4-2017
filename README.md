@@ -22,8 +22,10 @@ Learn Angular 4
 - basics-assignment-3 - Directives - ngIf, ngStyle, ngClass, ngFor
 - Course Project - Recipe App - The basics
 
+
 ### Topics
 - Getting Started
 - The Basics
 	- Components
 	- Databinding
+- Components & Databinding Deep Dive

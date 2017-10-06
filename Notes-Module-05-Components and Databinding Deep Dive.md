@@ -70,3 +70,139 @@ Usecase: Pass information between detail component to master component.
 		- maping the event __onServerAdded__ and the property __serverCreated__
 		- example: `<app-cockpit  (serverCreated)="onServerAdded($event)"></app-cockpit>`
 	
+### View Encapsulation
+**Options:**
+- Emulated (default)
+- None
+- Native - uses Shadow DOM technology
+	- not all browsers suport used Shadow DOM
+
+**How to change**
+- in the module html file
+- add 'encapsulation' property to the decorator @Components
+- example:`@Component({ ... encapsulation: viewEncapsulation.none})`
+
+### Using Local References in Templates
+
+This is used when we do not waht use two way data binding
+
+Example:
+```HTML
+	<input 
+	  type="text" 
+	  class="form-control"
+	  #serverNameInput>
+	<button
+	  class="btn btn-primary"
+	  (click)="onAddServer(serverNameInput)">Add Server</button>
+```
+```js
+	onAddServer(nameInput: HTMLInputElement) {
+		console.log(nameInput);
+		this.serverCreated.emit({
+		  serverName: nameInput.value,
+		  serverContent: this.newServerContent
+		});
+	}
+```
+Note hash tag element:
+- the local reference will hold a refecence to the element (HTML element), not to the value
+- only can be used in the HTML template, __not inside typescript code__. So to access to these values it is need to pass in a method
+
+### Getting Access to the Template & DOM with @ViewChild
+
+This is used to get direct access to elements in DOM in template through view child.
+
+Example:
+```HTML
+    <input
+      type="text"
+      class="form-control"
+      #serverContentInput>
+```
+```js
+	import { (...), ViewChild, ElementRef} from '@angular/core';
+	(...)
+	@ViewChild('serverContentInput') serverContentInput: ElementRef;
+	(...)
+	onAddServer(nameInput: HTMLInputElement) {
+		console.log(nameInput);
+		console.log(this.serverContentInput);
+		this.serverCreated.emit({
+		  serverName: nameInput.value,
+		  serverContent: this.serverContentInput.nativeElement.value
+		});
+	}
+```
+
+Note:
+- use this way to only access to the element value, 
+- __should not__ be used to change the DOM element
+- to change the DOM element, uses string interpolation and property binding
+
+### Projecting Content into Components with ng-content
+
+This way is used to project the html content from the master component to the detail component.
+
+This is used when the html content is complex.
+
+Example before:
+```HTML
+<!-- master component-->
+<div class="row">
+    <div class="col-xs-12">
+      <app-server-element
+        *ngFor="let serveElement of serverElements"
+        [srvElement]="serveElement"
+      ></app-server-element>
+    </div>
+</div>
+  
+<!-- detail component-->
+<div class="panel panel-default">
+  <div class="panel-heading">{{ element.name }}</div>
+  <div class="panel-body">
+    <p>
+      <strong *ngIf="element.type === 'server'" style="color: red">{{ element.content }}</strong>
+      <em *ngIf="element.type === 'blueprint'">{{ element.content }}</em>
+    </p>
+  </div>
+</div>
+```
+Example after:
+```HTML
+<!-- master component-->
+<div class="row">
+    <div class="col-xs-12">
+      <app-server-element
+        *ngFor="let serveElement of serverElements"
+        [srvElement]="serveElement">
+        <p>
+          <strong *ngIf="serveElement.type === 'server'" style="color: red">{{ serveElement.content }}</strong>
+          <em *ngIf="serveElement.type === 'blueprint'">{{ serveElement.content }}</em>
+        </p>
+      </app-server-element>
+    </div>
+</div>
+  
+<!-- detail component-->
+<div class="panel panel-default">
+  <div class="panel-heading">{{ element.name }}</div>
+  <div class="panel-body">
+    <ng-content></ng-content>
+  </div>
+</div>
+````
+
+### Understanding the Component Lifecycle
+
+| Event | Description |
+| --- | --- |
+| gnOnChanges | called after a bound input property changes |
+| ngOnInit | Called once the component is initialized |
+| ngDoCheck | Called during every change detection run |
+| ngAfterContnentInit | Called after content (ng-content) has been projected into view |
+| ngAfterContentChecked | Called every time the projected content has benn checked |
+| ngAfertViewInit | Called after the component's view (and child views) has benn initialized |
+| ngAfterViewChecked | Called every time the view (and child views) has benn checked |
+| ngOnDestroy | Called once the component is about to be destroyed |
