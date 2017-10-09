@@ -80,11 +80,11 @@ export class BetterHighLightDirective implements OnInit {
     this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'transparent');
   }
 
-  @HostListener('mouseenter') mouseover(enventData, Event) {
+  @HostListener('mouseenter') mouseover(eventData: Event) {
     this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue');
   }
 
-  @HostListener('mouseleave') mouseleave(enventData, Event) {
+  @HostListener('mouseleave') mouseleave(eventData: Event) {
     this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'transparent');
   }
 }
@@ -106,11 +106,11 @@ export class BetterHighLightDirective implements OnInit {
   ngOnInit() {
   }
 
-  @HostListener('mouseenter') mouseover(enventData, Event) {
+  @HostListener('mouseenter') mouseover(eventData: Event) {
     this.backgroundColor = 'blue';
   }
 
-  @HostListener('mouseleave') mouseleave(enventData, Event) {
+  @HostListener('mouseleave') mouseleave(eventData: Event) {
     this.backgroundColor = 'transparent';
   }
 }
@@ -136,11 +136,11 @@ export class BetterHighLightDirective implements OnInit {
     this.backgroundColor = this.defaultColor;
   }
 
-  @HostListener('mouseenter') mouseover(enventData, Event) {
+  @HostListener('mouseenter') mouseover(eventData: Event) {
     this.backgroundColor = this.highlightColor;
   }
 
-  @HostListener('mouseleave') mouseleave(enventData, Event) {
+  @HostListener('mouseleave') mouseleave(eventData: Event) {
     this.backgroundColor = this.defaultColor;
   }
 }

@@ -18,19 +18,21 @@ export class BetterHighLightDirective implements OnInit {
     this.backgroundColor = this.defaultColor;
   }
 
-  @HostListener('mouseenter') mouseover(enventData, Event) {
+  @HostListener('mouseenter') mouseover(eventData: Event) {
     // using HostListener to Listen to Host Events
     //this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue');
 
     // using HostBinding to Bind to Host Properties
     this.backgroundColor = this.highlightColor;
+    //console.log('enter ' + eventData);
   }
 
-  @HostListener('mouseleave') mouseleave(enventData, Event) {
+  @HostListener('mouseleave') mouseleave(eventData: Event) {
     // using HostListener to Listen to Host Events
     //this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'transparent');
 
     // using HostBinding to Bind to Host Properties
     this.backgroundColor = this.defaultColor;
+    //console.log('leave ' + eventData);
   }
 }
