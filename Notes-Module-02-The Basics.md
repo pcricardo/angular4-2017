@@ -128,6 +128,8 @@ Directives are instructions in the DOM.
 - ngStyle - allow dinamically change the style of a HTML element
 	- Example: `<p [ngStyle]="{backgroundColor:getColor()}">put text here</p>`
 	- where `getColor()` is a method
+	- another example: `[ngStyle]="{backgroundColor: (odd % 2 !==0) ? 'yellow' : 'transparent'}"`
+	- where 'odd' is a property in the ts file
 - ngClass - allow dinamically add/remove css classes
 	- Example: `<p [ngClass]="{onlineClass: serverStatus === 'online' }">put text here</p>`
 	- key + value
@@ -136,3 +138,4 @@ Directives are instructions in the DOM.
 - ngFor
 	- Example: `<app-server *ngFor="let serve of servers"></app-server>`
 	- where 'servers' is the array, and 'let serve' is the local variable
+
