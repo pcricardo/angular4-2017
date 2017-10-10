@@ -72,7 +72,7 @@ Notes:
 
 ### How many Instances of Service Should It Be?
 Example - 3 components where 1 is the top and the others 2 are child
-- scenario 1 -  
+- scenario 1
 	- 3 components and __each__ component use __providers__ property to use a service.	
 	- in this senario, angular __create 3 instances__ of the service
 - scenario 2 
