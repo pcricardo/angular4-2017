@@ -20,9 +20,11 @@ Learn Angular 4
 - basics-assignment-1 - first assignment. Create components.
 - basics-assignment-2 - Databinding
 - basics-assignment-3 - Directives - ngIf, ngStyle, ngClass, ngFor
-- Course Project - Recipe App - The basics
 - Assignment 4: Practicing Property & Event Binding and View Encapsulation
 - Directives
+- Services
+- Assignment 5: Using Services & Dependency Injection
+- Course Project - Recipe App - App developed with all feactures learn
 
 ### Topics
 - Getting Started
@@ -30,4 +32,5 @@ Learn Angular 4
 	- Components
 	- Databinding
 - Components & Databinding Deep Dive
-- Directives
+- Directives Deep Dive
+- Using Services & Dependency Injection
