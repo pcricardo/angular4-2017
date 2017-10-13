@@ -24,6 +24,7 @@ Learn Angular 4
 - Directives
 - Services
 - Assignment 5: Using Services & Dependency Injection
+- Routing
 - Course Project - Recipe App - App developed with all feactures learn
 
 ### Topics
@@ -34,3 +35,4 @@ Learn Angular 4
 - Components & Databinding Deep Dive
 - Directives Deep Dive
 - Using Services & Dependency Injection
+- Changing Pages with Routing

@@ -39,7 +39,7 @@ Steps:
 				}
 			);
 	}
-	  ````
+	  ```
 
 Notes:
 - It is good practice return a copy of array/list instead of a reference of the array/list
