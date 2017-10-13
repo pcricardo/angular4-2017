@@ -79,6 +79,8 @@ Example:
 </ul>
 ```
 
+Note:
+- when using routes, in all links __should be removed the href="#"__, because the _'href="#"'_ will reload the page
 
 ### Understanding Navigation Paths
 - absolute path 
@@ -93,7 +95,7 @@ Example:
 
 ### Styling Active Router Links
 - Angular has the directive to setup the active link - `routerLinkActive`
-- routerLinkActive will add the bootstrap class tho the HTML element if the link matches with the route
+- routerLinkActive will add a class (for example bootstrap class) to the HTML element if the link matches with the route
 - By default angular wil seach if the url contains the path, so it is possible to have more than one link/menu active.
 - To fix, there is another directive '[routerLinkActiveOptions]' that can fix it. 
 
@@ -362,9 +364,9 @@ Notes '**'
 - wildcard that means catch all path 
 - have to be the last route in the array
 
-
-It is good practice keep the files small.
-It is standart to extract the routes from the app.module to a new module
+**Create NgModule for Routes**
+- It is good practice keep the files small.
+- It is standart to extract the routes from the app.module to a new module
 
 Example - app routing module:
 
@@ -726,6 +728,27 @@ Notes:
  
 
 ### Sumary
+
+**Links**
+- When using routes, the links (HTML <a>) should not have 'href="#"'
+- Because 'href="#"' cause the reload of tha page
+- But if we remove 'href="#"', the mouse cursor not change to hand cursor
+	- to add the hand cursor, add __style="cursor: pointer;"__
+
+**Routes Problems**
+The next rout has a problem in the route 'new', because angular does not know if 'new' is a parameter in 'id'
+```TS
+{ path: 'recipes', component: RecipesComponent,
+	children: [
+		{ path: '', component: RecipeStartComponent },
+		{ path: ':id', component: RecipeDetailComponent },
+		{ path: 'new', component: RecipeEditComponent },
+		{ path: ':id/edit', component: RecipeEditComponent }
+	]
+}
+```
+Solution: put the route 'new' before the route ':id'
+
 
 **Get information from route**
 ```TS
