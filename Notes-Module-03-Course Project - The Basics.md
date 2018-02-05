@@ -27,10 +27,10 @@
 
 **Create App using CLI**
 - in command line, run the commands:
-- `ng new recipe-app` - create a new app with all necessary setup
-- `cd recipe-app` - navigate to the folder
-- `ng serve` - run the app
-	- the outpt should show someting like '** NG Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **'
+	- `ng new recipe-app` - create a new app with all necessary setup
+	- `cd recipe-app` - navigate to the folder
+	- `ng serve` - run the app
+		- the outpt should show someting like '** NG Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **'
 	- in the browser to to 'http://localhost:4200/'
 - install boostrap css
 	- in command line
@@ -42,7 +42,7 @@
 - if the default page show any contect 
 	- remove all default code from the files 
 	- add just a simple demo line text
-- finally rubn the app again - - `ng serve`
+- finally run the app again `ng serve`
 
 ### Creating Components
 - app (root)

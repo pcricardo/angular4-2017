@@ -259,7 +259,7 @@ Example - HTLM:
 ```HTML
 <a
 	[routerLink]="['/servers', 5, 'edit']"
-	[queyParams]="{allowEdit: '1'"
+	[queyParams]="{allowEdit: '1'}"
 	fragment="loading"
 	href="#"
 	class="list-group-item"
@@ -435,7 +435,7 @@ Main Steps:
 		- define the method `canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {...}`
 - setup the routes with __canActivate__ property
 	- if it used in a route, it also afect the children routes
-- add the 2 services to providers property of NgModule
+- add the 2 services to providers property of NgModule, of AppModule
 
 Example - fake Auth Service
 ```TS
@@ -514,7 +514,7 @@ Example - Route
 Steps:
 - in Auth Guard Service
 	- implements the __CanActivateChild__ interface
-	- in ht new method __canActivateChild()__ just call the _canActivate()_ method
+	- in the new method __canActivateChild()__ just call the _canActivate()_ method
 - int the setup the routes
 	- replace `canActivate:[AuthGuard]` with `canActivateChild:[AuthGuard]`
 

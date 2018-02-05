@@ -19,6 +19,7 @@ Note @Input()
 - by default all properties of components are only accessed inside the component, __not__ from outside.
 - we have to be explicited to each properties will be accessed outside the component, by decorate the properties with __@Input__
 - @Input() need to be imported - `import { Input } from '@angular/core';`
+
 Notes TypeScript:
 - declare an object in : `element: {type:string, name:string, content:string};`
 - instantiate an array of objects: `serverElements = [{type:'server', name:'TestServer', content:'Just a test!'}];`
@@ -199,7 +200,7 @@ Example after:
 | Event | Description |
 | --- | --- |
 | gnOnChanges | called after a bound input property changes |
-| ngOnInit | Called once the component is initialized |
+| ngOnInit | Called once the component is initialized , called after execut constructor|
 | ngDoCheck | Called during every change detection run |
 | ngAfterContnentInit | Called after content (ng-content) has been projected into view |
 | ngAfterContentChecked | Called every time the projected content has benn checked |

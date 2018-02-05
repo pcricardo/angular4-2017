@@ -46,7 +46,7 @@ Components contains it owns:
 	- in @NgModule decorator add the module to declarations array
 	
 **using the component in the html**
-- in app.component.html, just add html tag with the name of selector. Example: <app-server></app-server>
+- in app.component.html, just add html tag with the name of selector. Example: `<app-server></app-server>`
 
 ### Creating Components with the CLI & Nesting Components
 - With 'ng serve' runnig
@@ -67,7 +67,7 @@ Result:
 - register component in the app, by adding dependencies in file app.module.ts
 
 **using the component in the html**
-- in app.component.html, just add html tag with the name of selector. Example: <name component></name component>
+- in app.component.html, just add html tag with the name of selector. Example: `<name component></name component>`
 
 ### Component Selector
 

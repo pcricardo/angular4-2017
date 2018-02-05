@@ -216,7 +216,7 @@ export class UnlessDirective {
 ```
 
 *Note:*
-- the selector and the @Input property must have the same name
+- the selector and the @Input property must have the same name - `appUnless`
 
 ### Understanding ngSwitch
 Example:

@@ -36,3 +36,4 @@ Learn Angular 4
 - Directives Deep Dive
 - Using Services & Dependency Injection
 - Changing Pages with Routing
+- Understanding Observables
