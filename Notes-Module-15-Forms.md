@@ -195,6 +195,202 @@ email
 <span *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
 ```
 
-__Note: we need to add a local reference to the input field to have access to the angular properties of the input.__
+__Note: we need to add a local reference (`#email="ngModel"`) to the input field to have access to the angular properties of the input.__
 
-###
+### TD: Set Default Values with ngModel Property Binding
+app.component.ts file
+```JS
+(...)
+export class AppComponent {
+  @ViewChild('f') signupForm: NgForm;
+  defaultQuestion = 'pet';
+  (...)
+}
+```
+
+app.component.html file
+```HTML
+  <select 
+	id="secret" 
+	class="form-control"
+	[ngModel]="defaultQuestion"
+	name="secret">
+	<option value="pet">Your first Pet?</option>
+	<option value="teacher">Your first teacher?</option>
+  </select>
+```
+
+### TD: Using ngModel with Two-Way-Binding
+app.component.ts file
+```JS
+(...)
+export class AppComponent {
+  @ViewChild('f') signupForm: NgForm;
+  defaultQuestion = 'pet';
+  answer = '';
+  (...)
+}
+```
+
+app.component.html file
+```HTML
+	<div class="form-group">
+	  <textarea 
+		name="questionAnswer"
+		rows="3"
+		class="form-control"
+		[(ngModel)]="answer"></textarea>
+	</div>
+	<p>Your replay: {{ answer }}</p>
+```
+
+### TD: Grouping Form Controls
+Senario: 
+We have a form with many fields, it will be nice if we can group the fields in areas.
+
+Example
+```HTML
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+	<div 
+		id="user-data"
+		ngModelGroup="userData"
+		#userData="ngModelGroup"
+		>
+	  <div class="form-group">
+		<label for="username">Username</label>
+		<input 
+			type="text" 
+			id="username" 
+			class="form-control"
+			ngModel
+			name="username"
+			required>
+	  </div>
+	  <button class="btn btn-default" type="button">Suggest an Username</button>
+	  <div class="form-group">
+		<label for="email">Mail</label>
+		<input 
+			type="email" 
+			id="email" 
+			class="form-control"
+			ngModel
+			name="email"
+			required
+			email
+			#email="ngModel">
+		<span *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
+	  </div>
+	</div>
+	<p *ngIf="!userData.valid && userData.touched" style="color: red;">User Data is invalid!</p>
+	(...)
+</form>
+```
+
+
+Note: 
+- with group, angular will validate and show validation messages per group.
+- we can access to the group object using local reference like `#userData="..."` 
+
+""" TD: Handling Radio Buttons
+app.component.ts file
+```JS
+genders = ['male', 'female'];
+```
+
+app.component.html file
+```HTML
+<div class="radio" *ngFor="let gender of genders">
+	<label>
+		<input
+			type="radio"
+			name="gender"
+			ngModel
+			[value]="gender"
+			required>
+		{{ gender }}
+	</label>
+</div>
+```
+
+### TD: Setting and Patching Form Values
+__Set the values of all controls of the form__
+```JS
+suggestUserName() {
+    const suggestedName = 'Superuser';
+	this.signupForm.setValue({
+		userData: {
+			username: suggestedName,
+			email: ''
+		},
+		secret: 'pet',
+		questionAnswer: '',
+		gender: 'male'
+	});
+}
+```
+
+Note: `setValue` function need to be passed a javascript object with all fields of the form, and override all fields..
+
+__Set a values of the controls you need to update__
+```JS
+suggestUserName() {
+	const suggestedName = 'Superuser';
+	this.signupForm.form.patchValue({
+		userData: {
+			username: suggestedName
+		},
+	});
+}
+
+```
+Note: `patchValue` __only__ override the values specified in the function.
+
+### TD: Using Form Data
+app.component.html file
+```HTML
+<div class="row" *ngIf="submitted">
+	<div class="col-xs-12">
+		<h3>Your Data</h3>
+		<p>Username: {{ user.username }}</p>
+		<p>Mail: {{ user.email }}</p>
+		<p>Secret Question: {{ user.secretQuestion }}</p>
+		<p>Answer: {{ user.answer }}</p>
+		<p>Gender {{ user.gender }}</p>
+		<p> </p>
+	</div>
+</div>
+```
+
+app.component.ts file
+```JS
+...
+user = {
+	username: '',
+	email: '',
+	secretQuestion: '',
+	answer: '',
+	gender: ''
+};
+submitted = false;
+
+onSubmit() {
+	//console.log(this.signupForm);
+	this.submitted = true;
+	this.user.username = this.signupForm.value.userData.username;
+	this.user.email = this.signupForm.value.userData.email;
+	this.user.secretQuestion = this.signupForm.value.secret;
+	this.user.answer = this.signupForm.value.questionAnswer;
+	this.user.gender = this.signupForm.value.gender;	
+}
+...
+```
+
+### TD: Resetting Forms
+
+__Just call `this.signupForm.reset()`.__
+
+It reset all teh values, and the css classes. 
+It is like the page was loaded again.
+
+Note: to reset the form to specific values use `setValue()' and pass the object with the values you would like to be showed.
+ 
