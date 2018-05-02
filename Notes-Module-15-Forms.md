@@ -1,21 +1,21 @@
 ## Module 15 - Forms
 
-### Waht Angular ofers
+### What Angular offers
 Angular give us such a javascript object representation of the form.
-This representation contais the form elements (like inputs) and adiciota information like form status (check if all the inouts are valid).
+This representation contais the form elements (like inputs) and aditional information like form status (check if all the inouts are valid).
 
 ### Tamplate-Driven (TD) vs. Reactive-Approach
 __Tamplate-Driven (TD)__ 
 - angular infers the Form Object from the DOM
 
 __Reactive__ 
-- Form is created programmaticaly and cynchronized with the DOM
+- Form is created programmaticaly and synchronized with the DOM
 - More advanced approach
 
-
-### TD: Creating the Form and Registering the Controls
+### Tamplate-Driven (TD)
+#### TD: Creating the Form and Registering the Controls
 Angular create a javascript object for us. This javascript object represents the infomation of the form.
-Angular automatically detect the html tag `<form>` .
+Angular automatically detect the html tag `<form>`.
 But angular __do not__ detect automatically the inputs in the form.
 
 Steps:
@@ -23,11 +23,19 @@ Steps:
 	- include _FormModule_ in the _imports_ array of __@NgModule__
 - in html code 
 	- add html tag `<form>`
-	- in from register the controllers (tell angular each html elements will recognised by angular)
+	- in from, register the controllers (tell angular each html elements will recognised by angular)
 		- `ngModel` - add it inside html inputs
 		- `name="name_control"`
 
-### TD: Submitting and Using the Form
+Note __ngModel__:
+- one way binding - just tell angular data input is a control
+	- `ngModel`
+- property binding - used to set default value to the control
+	- `[ngModel]="defaultQuestion"`
+- two way binding - used to instantly outputted, or use the value inputed
+	- `[(ngModel)]="answer"`
+
+#### TD: Submitting and Using the Form
 Steps:
 - in ts code (component)
 	- create a function that will be called in html code
@@ -108,14 +116,14 @@ import { AppComponent } from './app.component';
 export class AppModule { }
 ```
 
-### TD: Understanding Form State
+#### TD: Understanding Form State
 __Properties:__
 - controls - type FormControl
 - dirty - is true if we change any value in the form 
 - invalid - check validators
 - touched - if we click in any form element 
 
-### TD: Accessing the Form with @ViewChild
+#### TD: Accessing the Form with @ViewChild
 This is an alternative of using `<form (ngSubmit)="onSubmit(f)" #f="ngForm">`. 
 
 The @ViewChild approach is useful if we need to access to the form not just at the moment when we submit the form, but earlier.
@@ -131,7 +139,7 @@ app.component.html file
 
 app.component.ts file
 ```TS
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm  } from '@angular/forms';
 
 @Component({
@@ -148,13 +156,13 @@ export class AppComponent {
 }
 ```
 
-### TD: Adding Validation to check User Input
+#### TD: Adding Validation to check User Input
 
 Validations Example:
-- not empty - `required` - is a built-in HTML attibute, and the angular will deteted it and angular configure the form
-- email - is not a built-in HTML attibute
+- not empty - `required` - is a built-in HTML attribute, and the angular will detect it and angular configure the form
+- email - is not a built-in HTML attribute
 
-### Built-in Validators & Using HTML5 Validation
+#### Built-in Validators & Using HTML5 Validation
 https://angular.io/docs/ts/latest/api/forms/index/Validators-class.html -  built-in validators, 
 
 https://angular.io/api?type=directive - directives, some can be used as validators (search for ones that have validator in the name)
@@ -163,7 +171,7 @@ To enable HTML5 validation (by default, Angular disables it).
 You can do so by adding the ngNativeValidate  to a control in your template.
 
 
-### TD: Using the Form State
+#### TD: Using the Form State
 Disable submit button when form is not valid
 ```HTML
 <button 
@@ -175,12 +183,12 @@ type="submit"
 
 Use CSS class to highlight the form filed that are invalid
 ```CSS
-input.ng-invalid {
+input.ng-invalid.ng-touched {
 	border: 1px solid red;
 }
 ```
 
-### TD: Outputting Validation Error Messages
+#### TD: Outputting Validation Error Messages
 
 ```HTML
 <input 
@@ -197,7 +205,7 @@ email
 
 __Note: we need to add a local reference (`#email="ngModel"`) to the input field to have access to the angular properties of the input.__
 
-### TD: Set Default Values with ngModel Property Binding
+#### TD: Set Default Values with ngModel Property Binding
 app.component.ts file
 ```JS
 (...)
@@ -220,7 +228,7 @@ app.component.html file
   </select>
 ```
 
-### TD: Using ngModel with Two-Way-Binding
+#### TD: Using ngModel with Two-Way-Binding
 app.component.ts file
 ```JS
 (...)
@@ -244,7 +252,7 @@ app.component.html file
 	<p>Your replay: {{ answer }}</p>
 ```
 
-### TD: Grouping Form Controls
+#### TD: Grouping Form Controls
 Senario: 
 We have a form with many fields, it will be nice if we can group the fields in areas.
 
@@ -291,7 +299,7 @@ Note:
 - with group, angular will validate and show validation messages per group.
 - we can access to the group object using local reference like `#userData="..."` 
 
-""" TD: Handling Radio Buttons
+#### TD: Handling Radio Buttons
 app.component.ts file
 ```JS
 genders = ['male', 'female'];
@@ -312,7 +320,7 @@ app.component.html file
 </div>
 ```
 
-### TD: Setting and Patching Form Values
+#### TD: Setting and Patching Form Values
 __Set the values of all controls of the form__
 ```JS
 suggestUserName() {
@@ -329,7 +337,7 @@ suggestUserName() {
 }
 ```
 
-Note: `setValue` function need to be passed a javascript object with all fields of the form, and override all fields..
+Note: `setValue` function need to be passed a javascript object with __all fields__ of the form, and override all fields.
 
 __Set a values of the controls you need to update__
 ```JS
@@ -345,7 +353,7 @@ suggestUserName() {
 ```
 Note: `patchValue` __only__ override the values specified in the function.
 
-### TD: Using Form Data
+#### TD: Using Form Data
 app.component.html file
 ```HTML
 <div class="row" *ngIf="submitted">
@@ -385,12 +393,44 @@ onSubmit() {
 ...
 ```
 
-### TD: Resetting Forms
+#### TD: Resetting Forms
 
 __Just call `this.signupForm.reset()`.__
 
-It reset all teh values, and the css classes. 
+It reset all the values, and the css classes. 
 It is like the page was loaded again.
 
 Note: to reset the form to specific values use `setValue()' and pass the object with the values you would like to be showed.
- 
+
+### Reactive-Approach
+#### Reactive: Setup
+Notes:
+- Angular offers some tolls to quickly create a form.
+- At the end a form is a group of controls.
+- need to import `ReactiveFormsModule` in the _imports_ array of __@NgModule__ in app.module.ts file 
+	- there is no need `FormsModule`
+- need to import `FormGroup` in the name.component.ts file 
+
+#### Reactive: Creating a Form in Code
+Notes:
+- The init of FromGroup should the on OnInit method.
+- FromGroup contains FormControl
+- Controls are key values pars.
+
+FormControl arguments:
+- init value
+- validator
+- asynchronous validators
+
+Example:
+```JS
+	ngOnInit() {
+		this.signupForm = new FormGroup({
+			'username': new FormControl(null),
+			'email': new FormControl(null),
+			'gender': new FormControl('male')
+		});
+	}
+```
+
+#### Reactive: Syncing HTML and Form

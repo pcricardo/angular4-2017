@@ -33,10 +33,10 @@
 				required
 				email
 				#email="ngModel">
-			<span *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
+			<span *ngIf="!email.valid && email.touched" class="help-block">Please enter a valid email!</span>
           </div>
         </div>
-		<p *ngIf="!userData.valid && userData.touched" style="color: red;">User Data is invalid!</p>
+		<p *ngIf="!userData.valid && userData.touched" class="help-block">User Data is invalid!</p>
         <div class="form-group">
           <label for="secret">Secret Questions</label>
           <select 
@@ -67,6 +67,7 @@
 				{{ gender }}
 			</label>
 		</div>
+		<span *ngIf="!f.valid && f.touched" class="help-block">The form is invalid!</span>
         <button 
 			class="btn btn-primary" 
 			type="submit"
