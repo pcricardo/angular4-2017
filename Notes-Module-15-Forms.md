@@ -4,15 +4,15 @@
 Angular give us such a javascript object representation of the form.
 This representation contais the form elements (like inputs) and aditional information like form status (check if all the inouts are valid).
 
-### Tamplate-Driven (TD) vs. Reactive-Approach
-__Tamplate-Driven (TD)__ 
+### Template-Driven (TD) vs. Reactive-Approach
+__Template-Driven (TD)__ 
 - angular infers the Form Object from the DOM
 
 __Reactive__ 
 - Form is created programmaticaly and synchronized with the DOM
 - More advanced approach
 
-### Tamplate-Driven (TD)
+### Template-Driven (TD)
 #### TD: Creating the Form and Registering the Controls
 Angular create a javascript object for us. This javascript object represents the infomation of the form.
 Angular automatically detect the html tag `<form>`.
@@ -433,4 +433,364 @@ Example:
 	}
 ```
 
+Note:
+- we difine the name of key with a string between quotes
+- because we do not want, when javascript minifie, javascript change the key name 
+
 #### Reactive: Syncing HTML and Form
+Setup directives in HTML, to mapping HTML with our object (FormGroup) created in TS :
+- formGroup - this tell angular to take our from group
+- formControlName - tell angular what is the name of the inputs
+
+app.component.html file
+```HTML
+<form [formGroup]="signupForm">
+	<div class="form-group">
+	  <label for="username">Username</label>
+	  <input
+		type="text"
+		id="username"
+		formControlName="username"
+		class="form-control">
+	</div>
+</form>
+```
+
+Note:
+- when setup the directives, the angular will not infer the default behavior (create a form), but it will use our form we create in TS.
+- formControlName - can be define in 2 ways
+	- `formControlName="username"`
+	- `[formControlName]="'username'"`
+
+#### Reactive: Submitting the form
+It like Template-Driven:
+- in ts code (component)
+	- create a function that will be called in html code - `onSubmit()`
+- in html code
+	- call the function in html form tag - `(ngSubmit)="onSubmit()` 
+- The diference with the Template-Driven approach is that in Reactive-Approach we do not need to get the form because the have create our own form in TS
+
+__Example__
+
+app.component.html file
+```HTML
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+	...
+</form>
+````
+
+app.component.ts file
+```TS
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+  genders = ['male', 'female'];
+  signupForm: FormGroup;
+  
+  ngOnInit() {
+	this.signupForm = new FormGroup({
+		'username': new FormControl(null),
+		'email': new FormControl(null),
+		'gender': new FormControl('male')
+	});
+  }
+  
+  onSubmit(){
+	console.log(this.signupForm);
+  }
+}
+```
+
+#### Reactive: Adding Validation
+In Template-Driven, we can add for example, required property in HTML input.
+
+But in Reactive we __can not use this approach__, because the form in created and setup in TS (not in HTML), and we only synchronize (using directives) the TS with HTML.
+
+In Reactive, we need to use the second argument of the FormControl constructor.
+It can be passed one validator or an array.
+
+
+__Example__
+app.component.ts file
+```TS
+ngOnInit() {
+	this.signupForm = new FormGroup({
+		'username': new FormControl(null, Validators.required),
+		'email': new FormControl(null, [Validators.required, Validators.email]),
+		'gender': new FormControl('male')
+	});
+}
+```
+
+Note 
+- do not execute the validator `Validators.required()`, but instead, pass the reference `Validators.required` of validator. The angular will execute the validator when angular need it.
+- Validators requred import `import { Validators } from '@angular/forms';` 
+
+#### Reactive: Getting Access to Controls
+To get access to the controls in HTML, use get method.
+The get method receives one argument - control name or the path to the control
+
+__Example__
+
+app.component.html file
+```HTML
+<div class="form-group">
+  <label for="username">Username</label>
+  <input
+	type="text"
+	id="username"
+	formControlName="username"
+	class="form-control">
+	<span *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched" class="help-block">Please enter a valid username!</span>
+</div>
+```
+
+Note:
+- It is still possible get the controls using `signupForm.controls.username.valid`.
+- But if we have nested form elements, is better to use get().
+- For example:
+	- `signupForm.get('userData.contactData.email').invalid` is better than 
+	- `signupForm.controls.userData.controls.contactData.controls.email.invalid` 
+
+#### Reactive: Grouping Controls
+__Example__
+app.component.ts file
+```TS
+  ngOnInit() {
+	this.signupForm = new FormGroup({
+		'userData': new FormGroup({
+			'username': new FormControl(null, Validators.required),
+			'email': new FormControl(null, [Validators.required, Validators.email])
+		}),
+		'gender': new FormControl('male')
+	});
+  }
+```
+
+app.component.html file
+```HTML
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+  <div formGroupName="userData">
+	<div class="form-group">
+	  <label for="username">Username</label>
+	  <input
+		type="text"
+		id="username"
+		formControlName="username"
+		class="form-control">
+		<span 
+			*ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched" 
+			class="help-block">Please enter a valid username!</span>
+	</div>
+	<div class="form-group">
+	  <label for="email">email</label>
+	  <input
+		type="text"
+		id="email"
+		formControlName="email"
+		class="form-control">
+		<span 
+			*ngIf="!signupForm.get('userData.email').valid && signupForm.get('userData.email').touched" 
+			class="help-block">Please enter a valid email!</span>				
+	</div>
+</div>
+<div class="radio" *ngFor="let gender of genders">
+  <label>
+	<input
+	  type="radio"
+	  formControlName="gender"
+	  [value]="gender">{{ gender }}
+  </label>
+</div>
+<button class="btn btn-primary" type="submit">Submit</button>
+</form>
+```
+Note:
+- it need to update get() method in HTML, by change the parameter value (from name of control, to path of control)
+- the path is a string separated by dots.
+
+#### Reactive: Arrays of Form Controls (FormArray)
+Steps:
+- add import
+	`import { FormArray } from '@angular/forms';`
+- add and initialize controller 
+	- `'hobbies': new FormArray([])`
+- decare and execute action to add control to array of controllers
+	- `(<FormArray>this.signupForm.get('hobbies')).push(new FormControl(null))`
+	- when access with get() method, it need to cast to _FormArray_
+- synchronize TS with HTML
+	- by using `formArrayName` attribute in a HTML element, like a `<div>`
+	
+__Example__
+
+app.component.html file
+```HTML
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+...
+<div formArrayName="hobbies">
+	<h4>Your Hobbies</h4>
+	<button class="btn btn-default" type="button" (click)="onAddHobby()">Add Hobby</button>
+	<div class="form-group"
+		*ngFor="let hobbyControl of signupForm.get('hobbies').controls; let i = index;">
+	  <input
+		type="text"
+		class="form-control"
+		[formControlName]="i">
+	</div>
+</div>
+...
+</form>
+```
+
+app.component.ts file
+```TS
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
+...
+export class AppComponent implements OnInit {
+	...
+	signupForm: FormGroup;
+  
+	ngOnInit() {
+		this.signupForm = new FormGroup({
+			'userData': new FormGroup({
+				'username': new FormControl(null, Validators.required),
+				'email': new FormControl(null, [Validators.required, Validators.email])
+			}),
+			'gender': new FormControl('male'),
+			'hobbies': new FormArray([])
+		});
+	}
+	...
+	onAddHobby() {
+		const control = new FormControl(null, Validators.required);
+		(<FormArray>this.signupForm.get('hobbies')).push(control);
+	}
+}
+```
+
+#### Reactive: Creating Custom Validators
+validator:
+- is just a function
+- in parameter - control: FormControl
+- return value - {[s: string]: boolean}
+
+__Example__
+
+app.component.ts file
+```TS
+...
+ngOnInit() {
+	this.signupForm = new FormGroup({
+		'userData': new FormGroup({
+			'username': new FormControl(null, [Validators.required, this.forbiddenNames.bind(this)]),
+			'email': new FormControl(null, [Validators.required, Validators.email])
+		}),
+		'gender': new FormControl('male'),
+		'hobbies': new FormArray([])
+	});
+}
+...
+forbiddenNames(control: FormControl): {[s: string]: boolean} {
+console.log(this.forbiddenUsernames.indexOf(control.value));
+	if(this.forbiddenUsernames.indexOf(control.value) !== -1) {
+		return {'nameIsForbidden': true};
+	}
+	return false;
+}
+```
+
+Note
+- validator should return __null__ if is valid (or do not return nothing)
+- error __this__, think about who is calling _this_. It is Angular, and not inside the class
+	- to correct, just bind _this_
+- remember, do not execute the validator 
+- the error can be viewed in: FormGroup > controls > control > errors
+
+#### Reactive: Using Error Codes
+
+__Example__
+```HTML
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+	 <div formGroupName="userData">
+		<div class="form-group">
+		  <label for="username">Username</label>
+		  <input
+			type="text"
+			id="username"
+			formControlName="username"
+			class="form-control">
+			<span 
+				*ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched" 
+				class="help-block">
+				<span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">This name is invalid!</span>
+				<span *ngIf="signupForm.get('userData.username').errors['required']">Please enter a valid username!</span>					
+			</span>
+		</div>
+	</div>
+	...
+</form>
+```
+
+#### Reactive: Creating a Custom Async Validator
+The typically scenario to async valitadion is to use a webservice to validate async operation.
+
+validator:
+- is just a function
+- in parameter - control: FormControl
+- return value - Promisse<any> | Obervable<any>
+
+__Example__
+
+app.component.ts file
+```TS
+...
+ngOnInit() {
+	this.signupForm = new FormGroup({
+		'userData': new FormGroup({
+			'email': new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmails)
+		})
+	});
+}
+  ...
+forbiddenEmails(control: FormControl): Promise<any> | Obervable<any> {
+	const promise = new Promise<any>((resolve, reject) => {
+		setTimeout(() => {
+			if(control.value === 'error@mail.com'){
+				resolve({'emailIsForbidden': true});
+			} else {
+				resolve(null);
+			}
+		}, 1500);
+	});
+
+	return promise;
+}
+```
+
+Note:
+- Obervable need a import
+	- `import { Observable } from 'rxjs/Observable';`
+- note the status of html control, it change valid > pending > valid
+
+#### Reactive: Reacting to Status or Value Changes
+We can listening the changes in statusChanges and in valuesChanges
+
+```TS
+	this.signupForm.valueChanges.subscribe(
+		(value) => console.log(value);
+	);
+	this.signupForm.statusChanges.subscribe(
+		(status) => console.log(status);
+	);	
+```
+
+#### Reactive: Setting and Patching Values
+Setting patching, and reset are available, and it can be used in the same way Template-Driven.
+
