@@ -702,7 +702,7 @@ console.log(this.forbiddenUsernames.indexOf(control.value));
 	if(this.forbiddenUsernames.indexOf(control.value) !== -1) {
 		return {'nameIsForbidden': true};
 	}
-	return false;
+	return null;
 }
 ```
 
@@ -711,7 +711,7 @@ Note
 - error __this__, think about who is calling _this_. It is Angular, and not inside the class
 	- to correct, just bind _this_
 - remember, do not execute the validator 
-- the error can be viewed in: FormGroup > controls > control > errors
+- the error 'nameIsForbidden' can be viewed in: FormGroup > controls > control > errors
 
 #### Reactive: Using Error Codes
 
