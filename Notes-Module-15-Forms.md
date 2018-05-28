@@ -510,7 +510,7 @@ export class AppComponent implements OnInit {
 #### Reactive: Adding Validation
 In Template-Driven, we can add for example, required property in HTML input.
 
-But in Reactive we __can not use this approach__, because the form in created and setup in TS (not in HTML), and we only synchronize (using directives) the TS with HTML.
+But in Reactive we __can not use this approach__, because the form is created and setup in TS (not in HTML), and we only synchronize (using directives) the TS with HTML.
 
 In Reactive, we need to use the second argument of the FormControl constructor.
 It can be passed one validator or an array.
@@ -698,7 +698,7 @@ ngOnInit() {
 }
 ...
 forbiddenNames(control: FormControl): {[s: string]: boolean} {
-console.log(this.forbiddenUsernames.indexOf(control.value));
+	console.log(this.forbiddenUsernames.indexOf(control.value));
 	if(this.forbiddenUsernames.indexOf(control.value) !== -1) {
 		return {'nameIsForbidden': true};
 	}
@@ -794,3 +794,6 @@ We can listening the changes in statusChanges and in valuesChanges
 #### Reactive: Setting and Patching Values
 Setting patching, and reset are available, and it can be used in the same way Template-Driven.
 
+### Notes
+#### Validations
+valid positive numbers - `[pattern]="'^[1-9]+[0-9]*$'"` or `pattern="^[1-9]+[0-9]*$"`
