@@ -69,7 +69,7 @@ export class AppModule { }
 ## Pure and Impure Pipes (or: How to "fix" the Filter Pipe)
 - By default angular __NOT__ rerun our pipe on the data when every an object (like array) is changed.
 - Angular rerun our pipe when: we change an input, but not when the change an array.
-- Pure equals false - angular run filter if any data is changed. This can be a performance issue, that is because by default pure is false.
+- Pure equals false - angular run filter if any data is changed. This can be a performance issue, that is because by default pure is true.
 
 ## Notes
 - Be aware to use pipes in filtering or sorting lists . See the page: https://angular.io/guide/pipes#no-filter-pipe
